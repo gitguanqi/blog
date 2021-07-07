@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Linux部署GIT服务器gogs笔记 | Guan&#39;Blog</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    
+    <meta name="description" content="这两天一直在鼓捣Linux系统，想着老是用国外的github平台，访问速度又慢，下载上传速度也慢，不由自主的自己也想搭个私服啥的，专门供自己使用作为代码托管，想想就兴奋，于是开工了。
+
+目录
+
+安装
+配置
+运行
+
+安装
+
+准备一台云服务器
+
+阿里云、腾讯云、百度云等等都可以。
+
+下载gogs软件到服务器
+ ...">
+    
+    <link rel="preload" href="/assets/css/0.styles.7bc455d0.css" as="style"><link rel="preload" href="/assets/js/app.a5392195.js" as="script"><link rel="preload" href="/assets/js/6.647823a9.js" as="script"><link rel="preload" href="/assets/js/3.90552104.js" as="script"><link rel="preload" href="/assets/js/70.95fe3540.js" as="script"><link rel="prefetch" href="/assets/js/10.d6718044.js"><link rel="prefetch" href="/assets/js/100.95ed37d4.js"><link rel="prefetch" href="/assets/js/101.05db8246.js"><link rel="prefetch" href="/assets/js/102.a9ab70d6.js"><link rel="prefetch" href="/assets/js/103.ab9e284e.js"><link rel="prefetch" href="/assets/js/104.3d3c6cc7.js"><link rel="prefetch" href="/assets/js/105.f2ed36f9.js"><link rel="prefetch" href="/assets/js/106.1e91b867.js"><link rel="prefetch" href="/assets/js/107.e330020d.js"><link rel="prefetch" href="/assets/js/108.04e4cc7a.js"><link rel="prefetch" href="/assets/js/109.53c36a8a.js"><link rel="prefetch" href="/assets/js/11.99ffff59.js"><link rel="prefetch" href="/assets/js/110.9715fd9a.js"><link rel="prefetch" href="/assets/js/111.76f8976a.js"><link rel="prefetch" href="/assets/js/112.f214d30c.js"><link rel="prefetch" href="/assets/js/12.e438db60.js"><link rel="prefetch" href="/assets/js/13.ed21f80c.js"><link rel="prefetch" href="/assets/js/14.f79b4709.js"><link rel="prefetch" href="/assets/js/15.aba4d390.js"><link rel="prefetch" href="/assets/js/16.99c75a55.js"><link rel="prefetch" href="/assets/js/17.1d1444ee.js"><link rel="prefetch" href="/assets/js/18.dc2a1c38.js"><link rel="prefetch" href="/assets/js/19.f69fbfb6.js"><link rel="prefetch" href="/assets/js/20.f680ec08.js"><link rel="prefetch" href="/assets/js/21.582c7aaa.js"><link rel="prefetch" href="/assets/js/22.d354bc60.js"><link rel="prefetch" href="/assets/js/23.b24dfc39.js"><link rel="prefetch" href="/assets/js/24.69d5e635.js"><link rel="prefetch" href="/assets/js/25.ad6ad02b.js"><link rel="prefetch" href="/assets/js/26.efb827be.js"><link rel="prefetch" href="/assets/js/27.8ac5165f.js"><link rel="prefetch" href="/assets/js/28.d6fc61e5.js"><link rel="prefetch" href="/assets/js/29.edcbd79d.js"><link rel="prefetch" href="/assets/js/30.07e506c8.js"><link rel="prefetch" href="/assets/js/31.eeecfe48.js"><link rel="prefetch" href="/assets/js/32.ae2d777c.js"><link rel="prefetch" href="/assets/js/33.221a50ed.js"><link rel="prefetch" href="/assets/js/34.a568d348.js"><link rel="prefetch" href="/assets/js/35.da1cf940.js"><link rel="prefetch" href="/assets/js/36.4ebfbae6.js"><link rel="prefetch" href="/assets/js/37.d49b97b7.js"><link rel="prefetch" href="/assets/js/38.162e807f.js"><link rel="prefetch" href="/assets/js/39.cbebf81e.js"><link rel="prefetch" href="/assets/js/4.c30d8cf1.js"><link rel="prefetch" href="/assets/js/40.650b5d41.js"><link rel="prefetch" href="/assets/js/41.459a8b00.js"><link rel="prefetch" href="/assets/js/42.20f04e05.js"><link rel="prefetch" href="/assets/js/43.274fe1f6.js"><link rel="prefetch" href="/assets/js/44.38decfb3.js"><link rel="prefetch" href="/assets/js/45.9a5bd6a8.js"><link rel="prefetch" href="/assets/js/46.b5406df4.js"><link rel="prefetch" href="/assets/js/47.b69febd5.js"><link rel="prefetch" href="/assets/js/48.dbab6cb6.js"><link rel="prefetch" href="/assets/js/49.42bbee2f.js"><link rel="prefetch" href="/assets/js/5.516bab37.js"><link rel="prefetch" href="/assets/js/50.38fcbd00.js"><link rel="prefetch" href="/assets/js/51.fb88059f.js"><link rel="prefetch" href="/assets/js/52.57ffba1c.js"><link rel="prefetch" href="/assets/js/53.8e3512d5.js"><link rel="prefetch" href="/assets/js/54.263af726.js"><link rel="prefetch" href="/assets/js/55.0e232290.js"><link rel="prefetch" href="/assets/js/56.c4695090.js"><link rel="prefetch" href="/assets/js/57.199578fc.js"><link rel="prefetch" href="/assets/js/58.6ba87683.js"><link rel="prefetch" href="/assets/js/59.ed318dff.js"><link rel="prefetch" href="/assets/js/60.993f65dd.js"><link rel="prefetch" href="/assets/js/61.ed04c77d.js"><link rel="prefetch" href="/assets/js/62.f342c3e7.js"><link rel="prefetch" href="/assets/js/63.3f4ec8c1.js"><link rel="prefetch" href="/assets/js/64.4accb91e.js"><link rel="prefetch" href="/assets/js/65.92fbb6c9.js"><link rel="prefetch" href="/assets/js/66.9ddfd1dc.js"><link rel="prefetch" href="/assets/js/67.e30fa984.js"><link rel="prefetch" href="/assets/js/68.50b4f20f.js"><link rel="prefetch" href="/assets/js/69.3ad3f600.js"><link rel="prefetch" href="/assets/js/7.7b266281.js"><link rel="prefetch" href="/assets/js/71.5a49cd0c.js"><link rel="prefetch" href="/assets/js/72.1cd43751.js"><link rel="prefetch" href="/assets/js/73.49854f94.js"><link rel="prefetch" href="/assets/js/74.5ddd2da2.js"><link rel="prefetch" href="/assets/js/75.6ebe271a.js"><link rel="prefetch" href="/assets/js/76.fae93cc4.js"><link rel="prefetch" href="/assets/js/77.6cfd3456.js"><link rel="prefetch" href="/assets/js/78.18136a4e.js"><link rel="prefetch" href="/assets/js/79.782b6fb7.js"><link rel="prefetch" href="/assets/js/8.325fbe39.js"><link rel="prefetch" href="/assets/js/80.7ddbd97c.js"><link rel="prefetch" href="/assets/js/81.d692ca8e.js"><link rel="prefetch" href="/assets/js/82.017dbe12.js"><link rel="prefetch" href="/assets/js/83.7bbf0b5c.js"><link rel="prefetch" href="/assets/js/84.9041930c.js"><link rel="prefetch" href="/assets/js/85.19ceb241.js"><link rel="prefetch" href="/assets/js/86.6186a302.js"><link rel="prefetch" href="/assets/js/87.28fc80bd.js"><link rel="prefetch" href="/assets/js/88.766bc931.js"><link rel="prefetch" href="/assets/js/89.98f7f492.js"><link rel="prefetch" href="/assets/js/9.cd3b1c14.js"><link rel="prefetch" href="/assets/js/90.7937eb7c.js"><link rel="prefetch" href="/assets/js/91.bb9ead1e.js"><link rel="prefetch" href="/assets/js/92.06678e7f.js"><link rel="prefetch" href="/assets/js/93.714dacef.js"><link rel="prefetch" href="/assets/js/94.2426b720.js"><link rel="prefetch" href="/assets/js/95.63befa04.js"><link rel="prefetch" href="/assets/js/96.38086684.js"><link rel="prefetch" href="/assets/js/97.369e1fba.js"><link rel="prefetch" href="/assets/js/98.ec276cc8.js"><link rel="prefetch" href="/assets/js/99.648475c4.js"><link rel="prefetch" href="/assets/js/vuejs-paginate.a140baa0.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.7bc455d0.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div id="vuepress-theme-blog__global-layout"><section id="header-wrapper"><header id="header"><div class="header-wrapper"><div class="title"><a href="/" class="nav-link home-link">Guan'Blog </a></div> <div class="header-right-wrap"><ul class="nav"><li class="nav-item"><a href="/" class="nav-link">Home</a></li><li class="nav-item"><a href="/tag/" class="nav-link">Tags</a></li><li class="nav-item"><a href="https://guanqi.xyz/fe/" target="_blank" rel="noopener noreferrer" class="nav-link external">Demo</a></li></ul> <div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></div></header></section> <div id="mobile-header"><div class="mobile-header-bar"><div class="mobile-header-title"><a href="/" class="nav-link mobile-home-link">Guan'Blog </a> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div> <div class="mobile-menu-wrapper"><hr class="menu-divider"> <ul class="mobile-nav"><li class="mobile-nav-item"><a href="/" class="nav-link">Home</a></li><li class="mobile-nav-item"><a href="/tag/" class="nav-link">Tags</a></li><li class="mobile-nav-item"><a href="https://guanqi.xyz/fe/" target="_blank" rel="noopener noreferrer" class="nav-link external">Demo</a></li> <li class="mobile-nav-item"><!----></li></ul></div></div></div> <div class="content-wrapper"><div id="vuepress-theme-blog__post-layout"><article itemscope="itemscope" itemtype="https://schema.org/BlogPosting" class="vuepress-blog-theme-content"><header><h1 itemprop="name headline" class="post-title">
+        Linux部署GIT服务器gogs笔记
+      </h1> <div class="post-meta"><div itemprop="publisher author" itemtype="http://schema.org/Person" itemscope="itemscope" class="post-meta-author"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-navigation"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg> <span itemprop="name">Mark</span> <span itemprop="address">   in HangZhou</span></div> <div class="post-meta-date"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> <time pubdate itemprop="datePublished" datetime="2019-11-19T00:00:00.000Z">
+      2019-11-19
+    </time></div> <ul itemprop="keywords" class="post-meta-tags"><li class="post-tag" data-v-42ccfcd5><a href="/tag/linux" data-v-42ccfcd5><span data-v-42ccfcd5>linux</span></a></li><li class="post-tag" data-v-42ccfcd5><a href="/tag/git" data-v-42ccfcd5><span data-v-42ccfcd5>git</span></a></li><li class="post-tag" data-v-42ccfcd5><a href="/tag/gogs" data-v-42ccfcd5><span data-v-42ccfcd5>gogs</span></a></li></ul></div></header> <div itemprop="articleBody" class="content__default"><blockquote><p>这两天一直在鼓捣Linux系统，想着老是用国外的github平台，访问速度又慢，下载上传速度也慢，不由自主的自己也想搭个私服啥的，专门供自己使用作为代码托管，想想就兴奋，于是开工了。</p></blockquote> <h2 id="目录"><a href="#目录" class="header-anchor">#</a> 目录</h2> <ul><li>安装</li> <li>配置</li> <li>运行</li></ul> <h2 id="安装"><a href="#安装" class="header-anchor">#</a> 安装</h2> <ul><li>准备一台云服务器</li></ul> <p>阿里云、腾讯云、百度云等等都可以。</p> <ul><li>下载<a href="https://dl.gogs.io" target="_blank" rel="noopener noreferrer">gogs<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>软件到服务器</li></ul> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token builtin class-name">cd</span> /home/download
+<span class="token function">wget</span> https://dl.gogs.io/0.11.91/gogs_0.11.91_linux_amd64.tar.gz
+</code></pre></div><ul><li>解压文件</li></ul> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token function">tar</span> -zxv -f gogs_0.11.91_linux_amd64.tar.gz /usr/local/src
+<span class="token builtin class-name">cd</span> /usr/local/src
+<span class="token function">mv</span> gogs_0.11.91_linux_amd64 gogs
+<span class="token function">mv</span> gogs /usr/local/web
+</code></pre></div><h2 id="配置"><a href="#配置" class="header-anchor">#</a> 配置</h2> <ul><li>新建文件夹</li></ul> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token function">mkdir</span> -p custom/conf
+<span class="token builtin class-name">cd</span> custom/conf
+</code></pre></div><ul><li>自定义<code>app.ini</code>文件</li></ul> <p><a href="https://github.com/gogs/gogs/blob/master/conf/app.ini" target="_blank" rel="noopener noreferrer">参考配置<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <div class="language-ini extra-class"><pre class="language-ini"><code><span class="token comment"># !!! NEVER EVER MODIFY THIS FILE !!!</span>
+<span class="token comment"># !!! PLEASE MAKE CHANGES ON CORRESPONDING CUSTOM CONFIG FILE !!!</span>
+<span class="token comment"># !!! IF YOU ARE PACKAGING PROVIDER, PLEASE MAKE OWN COPY OF IT !!!</span>
+
+<span class="token comment">; App name that shows on every page title</span>
+<span class="token key attr-name">APP_NAME</span> <span class="token punctuation">=</span> <span class="token value attr-value">Gogs</span>
+<span class="token comment">; The name of the system user that runs Gogs</span>
+<span class="token key attr-name">RUN_USER</span> <span class="token punctuation">=</span> <span class="token value attr-value">git</span>
+<span class="token comment">; Either &quot;dev&quot;, &quot;prod&quot; or &quot;test&quot;</span>
+<span class="token key attr-name">RUN_MODE</span> <span class="token punctuation">=</span> <span class="token value attr-value">dev</span>
+
+<span class="token header"><span class="token punctuation">[</span><span class="token section-name selector">server</span><span class="token punctuation">]</span></span>
+<span class="token key attr-name">PROTOCOL</span> <span class="token punctuation">=</span> <span class="token value attr-value">http</span>
+<span class="token key attr-name">DOMAIN</span> <span class="token punctuation">=</span> <span class="token value attr-value">localhost</span>
+<span class="token key attr-name">ROOT_URL</span> <span class="token punctuation">=</span> <span class="token value attr-value">%(PROTOCOL)s://%(DOMAIN)s:%(HTTP_PORT)s/</span>
+<span class="token key attr-name">HTTP_ADDR</span> <span class="token punctuation">=</span> <span class="token value attr-value">0.0.0.0</span>
+<span class="token key attr-name">HTTP_PORT</span> <span class="token punctuation">=</span> <span class="token value attr-value">3000</span>
+<span class="token comment">; Permission for unix socket</span>
+<span class="token key attr-name">UNIX_SOCKET_PERMISSION</span> <span class="token punctuation">=</span> <span class="token value attr-value">666</span>
+<span class="token comment">; Local (DMZ) URL for Gogs workers (such as SSH update) accessing web service.</span>
+<span class="token comment">; In most cases you do not need to change the default value.</span>
+<span class="token comment">; Alter it only if your SSH server node is not the same as HTTP node.</span>
+<span class="token key attr-name">LOCAL_ROOT_URL</span> <span class="token punctuation">=</span> <span class="token value attr-value">%(PROTOCOL)s://%(HTTP_ADDR)s:%(HTTP_PORT)s/</span>
+<span class="token comment">; Disable SSH feature when not available</span>
+<span class="token key attr-name">DISABLE_SSH</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token comment">; Whether use builtin SSH server or not.</span>
+<span class="token key attr-name">START_SSH_SERVER</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token comment">; Domain name to be exposed in SSH clone URL</span>
+<span class="token key attr-name">SSH_DOMAIN</span> <span class="token punctuation">=</span> <span class="token value attr-value">%(DOMAIN)s</span>
+<span class="token comment">; Port number to be exposed in SSH clone URL</span>
+<span class="token key attr-name">SSH_PORT</span> <span class="token punctuation">=</span> <span class="token value attr-value">22</span>
+<span class="token comment">; Network interface builtin SSH server listens on</span>
+<span class="token key attr-name">SSH_LISTEN_HOST</span> <span class="token punctuation">=</span> <span class="token value attr-value">0.0.0.0</span>
+<span class="token comment">; Port number builtin SSH server listens on</span>
+<span class="token key attr-name">SSH_LISTEN_PORT</span> <span class="token punctuation">=</span> <span class="token value attr-value">%(SSH_PORT)s</span>
+<span class="token comment">; Root path of SSH directory, default is '~/.ssh', but you have to use '/home/git/.ssh'.</span>
+<span class="token key attr-name">SSH_ROOT_PATH</span> <span class="token punctuation">=</span>
+<span class="token comment">; Indicate whether to rewrite authorized_keys at start, ignored when use builtin SSH server</span>
+<span class="token key attr-name">REWRITE_AUTHORIZED_KEYS_AT_START</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token comment">; Choose the ciphers to support for SSH connections</span>
+<span class="token key attr-name">SSH_SERVER_CIPHERS</span> <span class="token punctuation">=</span> <span class="token value attr-value">aes128-ctr, aes192-ctr, aes256-ctr, aes128-gcm@openssh.com, arcfour256, arcfour128</span>
+<span class="token comment">; Directory to create temporary files when test publick key using ssh-keygen,</span>
+<span class="token comment">; default is system temporary directory.</span>
+<span class="token key attr-name">SSH_KEY_TEST_PATH</span> <span class="token punctuation">=</span>
+<span class="token comment">; Path to ssh-keygen, default is 'ssh-keygen' and let shell find out which one to call.</span>
+<span class="token key attr-name">SSH_KEYGEN_PATH</span> <span class="token punctuation">=</span> <span class="token value attr-value">ssh-keygen</span>
+<span class="token comment">; Indicate whether to check minimum key size with corresponding type</span>
+<span class="token key attr-name">MINIMUM_KEY_SIZE_CHECK</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token comment">; Disable CDN even in &quot;prod&quot; mode</span>
+<span class="token key attr-name">OFFLINE_MODE</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token key attr-name">DISABLE_ROUTER_LOG</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token comment">; Generate steps:</span>
+<span class="token comment">; $ ./gogs cert -ca=true -duration=8760h0m0s -host=myhost.example.com</span>
+<span class="token comment">;</span>
+<span class="token comment">; Or from a .pfx file exported from the Windows certificate store (do</span>
+<span class="token comment">; not forget to export the private key):</span>
+<span class="token comment">; $ openssl pkcs12 -in cert.pfx -out cert.pem -nokeys</span>
+<span class="token comment">; $ openssl pkcs12 -in cert.pfx -out key.pem -nocerts -nodes</span>
+<span class="token key attr-name">CERT_FILE</span> <span class="token punctuation">=</span> <span class="token value attr-value">custom/https/cert.pem</span>
+<span class="token key attr-name">KEY_FILE</span> <span class="token punctuation">=</span> <span class="token value attr-value">custom/https/key.pem</span>
+<span class="token comment">; Allowed TLS version values: SSL30, TLS10, TLS11, TLS12</span>
+<span class="token key attr-name">TLS_MIN_VERSION</span> <span class="token punctuation">=</span> <span class="token value attr-value">TLS10</span>
+
+<span class="token comment">; Upper level of template and static file path</span>
+<span class="token comment">; default is the path where Gogs is executed</span>
+<span class="token key attr-name">STATIC_ROOT_PATH</span> <span class="token punctuation">=</span>
+<span class="token comment">; Default path for App data</span>
+<span class="token key attr-name">APP_DATA_PATH</span> <span class="token punctuation">=</span> <span class="token value attr-value">data</span>
+<span class="token comment">; Application level GZIP support</span>
+<span class="token key attr-name">ENABLE_GZIP</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token comment">; Landing page for non-logged users, can be &quot;home&quot; or &quot;explore&quot;</span>
+<span class="token key attr-name">LANDING_PAGE</span> <span class="token punctuation">=</span> <span class="token value attr-value">home</span>
+
+<span class="token header"><span class="token punctuation">[</span><span class="token section-name selector">repository</span><span class="token punctuation">]</span></span>
+<span class="token comment">; Root path for storing repositories's data, default is &quot;~/&lt;username&gt;/gogs-repositories&quot;</span>
+<span class="token key attr-name">ROOT</span> <span class="token punctuation">=</span>
+<span class="token comment">; The script type server supports, sometimes could be &quot;sh&quot;</span>
+<span class="token key attr-name">SCRIPT_TYPE</span> <span class="token punctuation">=</span> <span class="token value attr-value">bash</span>
+<span class="token comment">; Default ANSI charset for an unrecognized charset</span>
+<span class="token key attr-name">ANSI_CHARSET</span> <span class="token punctuation">=</span>
+<span class="token comment">; Force every new repository to be private</span>
+<span class="token key attr-name">FORCE_PRIVATE</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token comment">; Global maximum creation limit of repository per user, -1 means no limit</span>
+<span class="token key attr-name">MAX_CREATION_LIMIT</span> <span class="token punctuation">=</span> <span class="token value attr-value">-1</span>
+<span class="token comment">; Mirror sync queue length, increase if mirror syncing starts hanging</span>
+<span class="token key attr-name">MIRROR_QUEUE_LENGTH</span> <span class="token punctuation">=</span> <span class="token value attr-value">1000</span>
+<span class="token comment">; Patch test queue length, increase if pull request patch testing starts hanging</span>
+<span class="token key attr-name">PULL_REQUEST_QUEUE_LENGTH</span> <span class="token punctuation">=</span> <span class="token value attr-value">1000</span>
+<span class="token comment">; Preferred Licenses to place at the top of the list</span>
+<span class="token comment">; Name must match file name in conf/license or custom/conf/license</span>
+<span class="token key attr-name">PREFERRED_LICENSES</span> <span class="token punctuation">=</span> <span class="token value attr-value">Apache License 2.0,MIT License</span>
+<span class="token comment">; Disable ability to interact with repositories by HTTP protocol</span>
+<span class="token key attr-name">DISABLE_HTTP_GIT</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token comment">; Enable ability to migrate repository by local path</span>
+<span class="token key attr-name">ENABLE_LOCAL_PATH_MIGRATION</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token comment">; Concurrency is used to retrieve commits information. This variable define</span>
+<span class="token comment">; the maximum number of tasks that can be run at the same time. Usually, the</span>
+<span class="token comment">; value depend of how many CPUs (cores) you have. If the value is set to zero</span>
+<span class="token comment">; or under, Gogs will automatically detect the number of CPUs your system have</span>
+<span class="token key attr-name">COMMITS_FETCH_CONCURRENCY</span> <span class="token punctuation">=</span> <span class="token value attr-value">0</span>
+<span class="token comment">; Enable render mode for raw file</span>
+<span class="token key attr-name">ENABLE_RAW_FILE_RENDER_MODE</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+
+<span class="token header"><span class="token punctuation">[</span><span class="token section-name selector">repository.editor</span><span class="token punctuation">]</span></span>
+<span class="token comment">; List of file extensions that should have line wraps in the CodeMirror editor.</span>
+<span class="token comment">; Separate extensions with a comma. To line wrap files without extension, just put a comma</span>
+<span class="token key attr-name">LINE_WRAP_EXTENSIONS</span> <span class="token punctuation">=</span> <span class="token value attr-value">.txt,.md,.markdown,.mdown,.mkd,</span>
+<span class="token comment">; Valid file modes that have a preview API associated with them, such as api/v1/markdown.</span>
+<span class="token comment">; Separate values by commas. Preview tab in edit mode won't show if the file extension doesn't match</span>
+<span class="token key attr-name">PREVIEWABLE_FILE_MODES</span> <span class="token punctuation">=</span> <span class="token value attr-value">markdown</span>
+
+<span class="token header"><span class="token punctuation">[</span><span class="token section-name selector">repository.upload</span><span class="token punctuation">]</span></span>
+<span class="token comment">; Enable repository file uploads.</span>
+<span class="token key attr-name">ENABLED</span> <span class="token punctuation">=</span> <span class="token value attr-value">true</span>
+<span class="token comment">; Path to temporarily store uploads (default path gets cleaned by Gogs in every start)</span>
+<span class="token key attr-name">TEMP_PATH</span> <span class="token punctuation">=</span> <span class="token value attr-value">data/tmp/uploads</span>
+<span class="token comment">; File types that are allowed to be uploaded, e.g. image/jpeg|image/png. Leave empty means allow any file type</span>
+<span class="token key attr-name">ALLOWED_TYPES</span> <span class="token punctuation">=</span>
+<span class="token comment">; Maximum size of each file in MB</span>
+<span class="token key attr-name">FILE_MAX_SIZE</span> <span class="token punctuation">=</span> <span class="token value attr-value">3</span>
+<span class="token comment">; Maximum number of files per upload</span>
+<span class="token key attr-name">MAX_FILES</span> <span class="token punctuation">=</span> <span class="token value attr-value">5</span>
+
+<span class="token comment">; Attachment settings for releases</span>
+<span class="token header"><span class="token punctuation">[</span><span class="token section-name selector">release.attachment</span><span class="token punctuation">]</span></span>
+<span class="token comment">; Whether attachments are enabled. Defaults to `true`</span>
+<span class="token key attr-name">ENABLED</span> <span class="token punctuation">=</span> <span class="token value attr-value">true</span>
+<span class="token comment">; Path for attachments. Defaults to `data/attachments`</span>
+<span class="token key attr-name">PATH</span> <span class="token punctuation">=</span> <span class="token value attr-value">data/attachments</span>
+<span class="token comment">; One or more allowed types, e.g. image/jpeg|image/png</span>
+<span class="token key attr-name">ALLOWED_TYPES</span> <span class="token punctuation">=</span> <span class="token value attr-value">*/*</span>
+<span class="token comment">; Max size of each file. Defaults to 32MB</span>
+<span class="token key attr-name">MAX_SIZE</span> <span class="token punctuation">=</span> <span class="token value attr-value">32</span>
+<span class="token comment">; Max number of files per upload. Defaults to 10</span>
+<span class="token key attr-name">MAX_FILES</span> <span class="token punctuation">=</span> <span class="token value attr-value">10</span>
+
+<span class="token header"><span class="token punctuation">[</span><span class="token section-name selector">database</span><span class="token punctuation">]</span></span>
+<span class="token comment">; Either &quot;mysql&quot;, &quot;postgres&quot; or &quot;sqlite3&quot;, you can connect to TiDB with MySQL protocol</span>
+<span class="token key attr-name">DB_TYPE</span> <span class="token punctuation">=</span> <span class="token value attr-value">mysql</span>
+<span class="token key attr-name">HOST</span> <span class="token punctuation">=</span> <span class="token value attr-value">127.0.0.1:3306</span>
+<span class="token key attr-name">NAME</span> <span class="token punctuation">=</span> <span class="token value attr-value">gogs</span>
+<span class="token key attr-name">USER</span> <span class="token punctuation">=</span> <span class="token value attr-value">root</span>
+<span class="token key attr-name">PASSWD</span> <span class="token punctuation">=</span>
+<span class="token comment">; For &quot;postgres&quot; only, either &quot;disable&quot;, &quot;require&quot; or &quot;verify-full&quot;</span>
+<span class="token key attr-name">SSL_MODE</span> <span class="token punctuation">=</span> <span class="token value attr-value">disable</span>
+<span class="token comment">; For &quot;sqlite3&quot; and &quot;tidb&quot;, use absolute path when you start as service</span>
+<span class="token key attr-name">PATH</span> <span class="token punctuation">=</span> <span class="token value attr-value">data/gogs.db</span>
+
+<span class="token header"><span class="token punctuation">[</span><span class="token section-name selector">security</span><span class="token punctuation">]</span></span>
+<span class="token key attr-name">INSTALL_LOCK</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token comment">; !!CHANGE THIS TO KEEP YOUR USER DATA SAFE!!</span>
+<span class="token key attr-name">SECRET_KEY</span> <span class="token punctuation">=</span> <span class="token value attr-value">!#@FDEWREWR&amp;*(</span>
+<span class="token comment">; Auto-login remember days</span>
+<span class="token key attr-name">LOGIN_REMEMBER_DAYS</span> <span class="token punctuation">=</span> <span class="token value attr-value">7</span>
+<span class="token key attr-name">COOKIE_USERNAME</span> <span class="token punctuation">=</span> <span class="token value attr-value">gogs_awesome</span>
+<span class="token key attr-name">COOKIE_REMEMBER_NAME</span> <span class="token punctuation">=</span> <span class="token value attr-value">gogs_incredible</span>
+<span class="token key attr-name">COOKIE_SECURE</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token comment">; Reverse proxy authentication header name of user name</span>
+<span class="token key attr-name">REVERSE_PROXY_AUTHENTICATION_USER</span> <span class="token punctuation">=</span> <span class="token value attr-value">X-WEBAUTH-USER</span>
+<span class="token comment">; Enable to set cookie to indicate user login status</span>
+<span class="token key attr-name">ENABLE_LOGIN_STATUS_COOKIE</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token key attr-name">LOGIN_STATUS_COOKIE_NAME</span> <span class="token punctuation">=</span> <span class="token value attr-value">login_status</span>
+
+<span class="token header"><span class="token punctuation">[</span><span class="token section-name selector">service</span><span class="token punctuation">]</span></span>
+<span class="token key attr-name">ACTIVE_CODE_LIVE_MINUTES</span> <span class="token punctuation">=</span> <span class="token value attr-value">180</span>
+<span class="token key attr-name">RESET_PASSWD_CODE_LIVE_MINUTES</span> <span class="token punctuation">=</span> <span class="token value attr-value">180</span>
+<span class="token comment">; User need to confirm e-mail for registration</span>
+<span class="token key attr-name">REGISTER_EMAIL_CONFIRM</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token comment">; Does not allow register and admin create account only</span>
+<span class="token key attr-name">DISABLE_REGISTRATION</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token comment">; User must sign in to view anything.</span>
+<span class="token key attr-name">REQUIRE_SIGNIN_VIEW</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token comment">; Mail notification</span>
+<span class="token key attr-name">ENABLE_NOTIFY_MAIL</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token comment">; More detail: https://github.com/gogits/gogs/issues/165</span>
+<span class="token key attr-name">ENABLE_REVERSE_PROXY_AUTHENTICATION</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token key attr-name">ENABLE_REVERSE_PROXY_AUTO_REGISTRATION</span> <span class="token punctuation">=</span> <span class="token value attr-value">false</span>
+<span class="token comment">; Enable captcha validation for registration</span>
+<span class="token key attr-name">ENABLE_CAPTCHA</span> <span class="token punctuation">=</span> <span class="token value attr-value">true</span>
+</code></pre></div><h2 id="运行"><a href="#运行" class="header-anchor">#</a> 运行</h2> <ul><li>启动服务</li></ul> <p>输入<code>./gogs web</code>即可成功运行。</p> <p>**注意：**如果想要在退出ssh客户端后继续在后台运行，可以使用下面这个命令。</p> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token function">nohup</span> ./gogs web <span class="token operator">&amp;</span>
+</code></pre></div><ul><li>创建同名用户和数据库</li></ul> <p>登录mysql数据库，创建用户和数据库，添加数据库权限到用户。</p> <ul><li>安装配置文件</li></ul> <p>打开游览器打开 <code>http://{IP}:3000/install</code> ，就可以看到配置填写界面，填完以后就可以访问了。</p> <ul><li>预览</li></ul> <p><img src="/img/profile.png" alt="gogs"></p> <h2 id="最后"><a href="#最后" class="header-anchor">#</a> 最后</h2> <p>搭建自己的git服务器就到这里了。</p></div> <footer><!----> <hr> <!----></footer></article> <div class="sticker vuepress-toc"><div class="vuepress-toc-item vuepress-toc-h2 active"><a href="#目录" title="目录">目录</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#安装" title="安装">安装</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#配置" title="配置">配置</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#运行" title="运行">运行</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#最后" title="最后">最后</a></div></div></div></div> <footer class="footer" data-v-3d9deeb8><div class="footer-left-wrap" data-v-3d9deeb8><ul class="contact" data-v-3d9deeb8><li class="contact-item" data-v-3d9deeb8><a href="mailto:contact@guanqi.xyz" class="nav-link external" data-v-3d9deeb8><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail" data-v-3d9deeb8><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" data-v-3d9deeb8></path><polyline points="22,6 12,13 2,6" data-v-3d9deeb8></polyline></svg>
+          
+        </a></li><li class="contact-item" data-v-3d9deeb8><a href="https://codepen.io/guanqi/" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-codepen" data-v-3d9deeb8><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" data-v-3d9deeb8></polygon><line x1="12" y1="22" x2="12" y2="15.5" data-v-3d9deeb8></line><polyline points="22 8.5 12 15.5 2 8.5" data-v-3d9deeb8></polyline><polyline points="2 15.5 12 8.5 22 15.5" data-v-3d9deeb8></polyline><line x1="12" y1="2" x2="12" y2="8.5" data-v-3d9deeb8></line></svg>
+          
+        </a></li><li class="contact-item" data-v-3d9deeb8><a href="https://github.com/gitguanqi/" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github" data-v-3d9deeb8><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" data-v-3d9deeb8></path></svg>
+          
+        </a></li></ul></div> <div class="footer-right-wrap" data-v-3d9deeb8><ul class="copyright" data-v-3d9deeb8><li class="copyright-item" data-v-3d9deeb8>Copyright © 2017-2021 MarkGuan</li></ul></div></footer></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.a5392195.js" defer></script><script src="/assets/js/6.647823a9.js" defer></script><script src="/assets/js/3.90552104.js" defer></script><script src="/assets/js/70.95fe3540.js" defer></script>
+  </body>
+</html>
